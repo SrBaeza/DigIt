@@ -1,3 +1,7 @@
+//variables globales
+var playerNrg = 100;
+var energyBar = document.getElementById("nrgBarID");
+
 //Puesta en marcha del script
 document.body.onload = function() {
     StartGame();
@@ -8,7 +12,19 @@ function StartGame() {
     ResetTimer();
     StartTimer();
     MakeTiles();
+    myNrgBar();
 }
+
+
+//funcion para probar la barra de energia
+function myNrgBar() {
+    var nrgValueBasic = 5;
+    energyBar.style.width = (100 - nrgValueBasic) + "%";
+    energyBar.style.backgroundColor = "#F9BCCA";
+
+}
+
+//funcion para modificar la barra
 
 //Funcion para crear elementos basados en un array
 function MakeTiles() {
