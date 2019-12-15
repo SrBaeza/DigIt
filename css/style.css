@@ -262,14 +262,31 @@
     /*Tile*/
     
     .tile {
-        background: coral;
+        background-size: 100%;
         border-radius: 5px;
         margin: 1px;
+        transition: ease-in-out, 0.2s;
     }
     
-    .tile:nth-child(even) {
-        background: cyan;
+    .undigged {
+        background-image: url(../img/tex_tile_1.png);
     }
+    
+    .digged {
+        background-image: url(../img/tex_tile_2.png);
+    }
+    
+    .undigged:hover {
+        transform: rotate(180deg) scale(1.1);
+    }
+    
+    .pwrItemImg {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    /*
+        Clases de la barra de energia.
+    */
     /* Gas Restante*/
     
     .playerEnergy {
@@ -312,7 +329,7 @@
     }
     
     .nrg-moved .nrg-bar {
-        width: 100%;
-        background-color: #EF476F;
+        width: 0%;
+        background-color: hsl(0, 80%, 50%);
         transition: all .5s ease-in-out;
     }
