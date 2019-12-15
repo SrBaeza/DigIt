@@ -145,7 +145,7 @@ function tileCheck(currentElement) {
         //añadimos clase a la imagen
         newImg.classList.add("pwrItemImg");
         //añadimos los parametros de ruta la imagen
-        newImg.src = 'img/power_fuel_full.png';
+        newImg.src = 'img/power_fuel_full.webp';
         //finalmente añadimos el div a la tile
         currentElement.appendChild(newImg);
 
@@ -165,7 +165,7 @@ function tileCheck(currentElement) {
         //añadimos clase a la imagen
         newImg.classList.add("pwrItemImg");
         //añadimos los parametros de ruta la imagen
-        newImg.src = 'img/power_timer_full.png';
+        newImg.src = 'img/power_timer_full.webp';
         //finalmente añadimos el div a la tile
         currentElement.appendChild(newImg);
 
@@ -221,4 +221,20 @@ function timeAdd() {
         //añadimos tiempo
         currentTime = currentTime + timeValueIncrement;
     }
+}
+
+var newArray = [];
+//funcion para tomar la informacion del archivo json data
+//es una funcion async , cuidado de no utilizar los datos antes de ser cargados.
+fetch("../data/data.json")
+    .then(function(resp) {
+        return resp.json();
+    })
+    .then(function(data) {
+        newArray = data;
+    })
+    .then(showmydata(newArray))
+
+function showmydata(mydata) {
+    console.log(mydata[0]);
 }

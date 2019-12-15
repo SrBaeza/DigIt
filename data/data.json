@@ -1,0 +1,17 @@
+{
+    "map1": [
+        { "name": "test1", "imagesrc": "../img/myObj01.png" },
+        { "name": "test2", "imagesrc": "../img/myObj02.png" },
+        { "name": "test3", "imagesrc": "../img/myObj03.png" }
+    ],
+    "map2": [
+        { "name": "test1", "imagesrc": "../img/myObj01.png" },
+        { "name": "test2", "imagesrc": "../img/myObj02.png" },
+        { "name": "test3", "imagesrc": "../img/myObj03.png" }
+    ],
+    "map3": [
+        { "name": "test1", "imagesrc": "../img/myObj01.png" },
+        { "name": "test2", "imagesrc": "../img/myObj02.png" },
+        { "name": "test3", "imagesrc": "../img/myObj03.png" }
+    ]
+}
