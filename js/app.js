@@ -231,7 +231,7 @@ fetch("../data/data.json")
         return resp.json();
     })
     .then(function(data) {
-        newArray = data;
+        newArray = data[0];
     })
     .then(showmydata(newArray))
 
