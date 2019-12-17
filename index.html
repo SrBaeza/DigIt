@@ -16,23 +16,26 @@
     <meta name="author" content="Alejandro Baeza">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Carga de iconos externos y fuentes extras	-->
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Permanent+Marker">
+    <!-- Carga de favicon	-->
+    <link rel="icon" type='image/ico' href='img/favicon.ico' />
 
     <!-- Link a nuestro fichero css -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <!-- Carga del script-->
-    <script type="text/javascript" src="js/app.js" defer></script>
+    <script type="text/JavaScript" src="js/app.js" defer></script>
+
+
 </head>
 
 <body>
+    <!-- titulo en pagina -->
     <div class="title">
         <div class="titleText">DIG IT GAME</div>
     </div>
+    <!-- bloque general -->
     <div class="wrapper">
-
+        <!-- bloque izquierdo -->
         <div class="menuLeft">
             <!-- Temporizador -->
             <div class="menuTimer">
@@ -42,8 +45,8 @@
             <!-- ITEMS -->
             <div class="menuPowers">
                 <div class="menuPowersTitle">POWERS</div>
-                <div class="playerPowers">x</div>
-                <div class="playerPowers">x</div>
+                <div class="playerPowers" id="PowerFuel"></div>
+                <div class="playerPowers" id="PowerTime"></div>
             </div>
             <!-- Puntuacion-->
             <div class="menuScore">
@@ -62,6 +65,7 @@
 
             </div>
         </div>
+        <!-- bloque central -->
         <div class="mainBlock">
             <!-- Tablero -->
             <div id="myBoard" class="board"></div>
@@ -75,6 +79,7 @@
                 </div>
             </div>
         </div>
+        <!-- bloque derecho -->
         <div class="menuRight">
             <!-- Items-->
             <div class="menuItems">

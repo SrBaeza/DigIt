@@ -1,335 +1,418 @@
-    /* * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    } */
-    /*
+/*
     CSS Global
     */
-    /*Limitacion de tamaño*/
-    
-    body {
-        background: fuchsia;
-        min-width: 1000px;
-        max-width: 1000px;
-        min-height: 1000px;
-        max-height: 1000px;
-        margin: auto;
-    }
-    /* principal*/
-    
-    .wrapper {
-        margin: 0 auto;
-        display: grid;
-        max-width: 1000px;
-        max-height: 800px;
-        grid-template-columns: 1fr 4fr 1fr;
-        grid-template-rows: 800px;
-    }
-    /*
+
+
+/*Limitacion de tamaño*/
+
+body {
+    background: fuchsia;
+    min-width: 1000px;
+    max-width: 1000px;
+    min-height: 1000px;
+    max-height: 1000px;
+    margin: auto;
+}
+
+
+/* principal*/
+
+.wrapper {
+    margin: 0 auto;
+    display: grid;
+    max-width: 1000px;
+    max-height: 800px;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 800px;
+}
+
+
+/*
     CSS Del Bloque Titulo
     */
-    /* bloque del titulo*/
-    
-    .title {
-        grid-column-start: 1;
-        grid-column-end: 4;
-        grid-row-start: 1;
-        grid-row-end: 2;
-        position: relative;
-        margin: 5px 0px;
-        background-color: #91908e;
-        border-radius: 25px;
-    }
-    /*Texto del titulo*/
-    
-    .titleText {
-        min-height: 0;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 5rem;
-    }
-    /*
+
+
+/* bloque del titulo*/
+
+.title {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    position: relative;
+    margin: 5px 0px;
+    background-color: #91908e;
+    border-radius: 25px;
+}
+
+
+/*Texto del titulo*/
+
+.titleText {
+    min-height: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+}
+
+
+/*
     CSS Del Menu IZQ
     */
-    /*Menu Izq*/
-    
-    .menuLeft {
-        display: grid;
-        position: relative;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 4fr;
-        row-gap: 10px;
-    }
-    /* Bloque Tiempo*/
-    
-    .menuTimer {
-        background: #b5b5b3;
-        border-radius: 15px;
-        text-align: center;
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        grid-template-columns: 1fr;
-        justify-items: center;
-        align-items: center;
-    }
-    /*Titulo de Tiempo*/
-    
-    .menuTimerTitle {
-        background: #dada0f;
-    }
-    /*Texto de Tiempo*/
-    
-    .currentTime {
-        text-align: center;
-        display: inline-block;
-    }
-    /*Bloque Powers*/
-    
-    .menuPowers {
-        background: #b5b5b3;
-        border-radius: 15px;
-        text-align: center;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 2fr;
-        justify-items: center;
-        align-items: center;
-    }
-    /*Titulo Powers*/
-    
-    .menuPowersTitle {
-        grid-column-start: 1;
-        grid-column-end: 3;
-    }
-    /*Powers*/
-    
-    .playerPowers {
-        background: green;
-        border-radius: 15px;
-        width: 80%;
-        height: 80%;
-    }
-    /*Bloque Puntuacion General*/
-    
-    .menuScore {
-        background: cornflowerblue;
-        border-radius: 15px;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
-        justify-items: center;
-        align-items: center;
-    }
-    /*Bloque Puntuacion*/
-    
-    .mnScorePoints {
-        background: darkcyan;
-        border-radius: 15px;
-        width: 80%;
-        height: 80%;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-        justify-items: center;
-        align-items: center;
-    }
-    /*Bloque Objetos Encontrados*/
-    
-    .mnScoreItems {
-        background: darkcyan;
-        border-radius: 15px;
-        width: 80%;
-        height: 80%;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-        justify-items: center;
-        align-items: center;
-    }
-    /*Bloque Total Objetos*/
-    
-    .mnScoreTotal {
-        background: darkcyan;
-        border-radius: 15px;
-        width: 80%;
-        height: 80%;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-        justify-items: center;
-        align-items: center;
-    }
-    /*Titulos Puntuacion*/
-    
-    .mnScoreTitle {
-        text-align: center;
-    }
-    /*Texto Puntuaciones*/
-    
-    .mnScoreValue {
-        text-align: center;
-    }
-    /*
+
+
+/*Menu Izq*/
+
+.menuLeft {
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 4fr;
+    row-gap: 10px;
+}
+
+
+/* Bloque Tiempo*/
+
+.menuTimer {
+    background: #b5b5b3;
+    border-radius: 15px;
+    text-align: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+
+/*Titulo de Tiempo*/
+
+.menuTimerTitle {
+    background: #dada0f;
+}
+
+
+/*Texto de Tiempo*/
+
+.currentTime {
+    text-align: center;
+    display: inline-block;
+}
+
+
+/*Bloque Powers*/
+
+.menuPowers {
+    background: #b5b5b3;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
+    justify-items: center;
+}
+
+
+/*Titulo Powers*/
+
+.menuPowersTitle {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+
+/*Powers*/
+
+.playerPowers {
+    background: green;
+    border-radius: 15px;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    position: relative;
+}
+
+
+/*Contador de los powers*/
+
+.powerCounter {
+    position: absolute;
+    width: 30%;
+    height: 25%;
+    z-index: 2;
+    left: 60%;
+    top: 70%;
+    background-color: cyan;
+    border-radius: 15px;
+    text-align: center;
+}
+
+
+/*Bloque Puntuacion General*/
+
+.menuScore {
+    background: cornflowerblue;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+
+/*Bloque Puntuacion*/
+
+.mnScorePoints {
+    background: darkcyan;
+    border-radius: 15px;
+    width: 80%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+
+/*Bloque Objetos Encontrados*/
+
+.mnScoreItems {
+    background: darkcyan;
+    border-radius: 15px;
+    width: 80%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+
+/*Bloque Total Objetos*/
+
+.mnScoreTotal {
+    background: darkcyan;
+    border-radius: 15px;
+    width: 80%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+
+/*Titulos Puntuacion*/
+
+.mnScoreTitle {
+    text-align: center;
+}
+
+
+/*Texto Puntuaciones*/
+
+.mnScoreValue {
+    text-align: center;
+}
+
+
+/*
     CSS Menu DCH
     */
-    /*Menu Dch*/
-    
-    .menuRight {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 4fr 2fr;
-        row-gap: 10px;
-    }
-    /*Bloque Items*/
-    
-    .menuItems {
-        background: chocolate;
-        border-radius: 15px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 2fr 2fr 2fr;
-        justify-items: center;
-        align-items: center;
-        column-gap: 5px;
-        row-gap: 10px;
-    }
-    /*Titulo Items*/
-    
-    .menuItemsTitle {
-        grid-column-start: 1;
-        grid-column-end: 3;
-    }
-    /*Grid de Item*/
-    
-    .menuItemsItem {
-        display: grid;
-        height: 90%;
-        width: 90%;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
-    }
-    /*Bloque Museo*/
-    
-    .menuMuseum {
-        background: chocolate;
-        border-radius: 15px;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(7, 1fr);
-        justify-items: center;
-        align-items: center;
-        row-gap: 2px;
-    }
-    /*Titulo museo*/
-    
-    .menuMuseumTitle {
-        background: darkgray;
-        height: 90%;
-        width: 90%;
-    }
-    /*Items Museo*/
-    
-    .menuMuseumItem {
-        background: cyan;
-        height: 90%;
-        width: 90%;
-    }
-    /*
+
+
+/*Menu Dch*/
+
+.menuRight {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 4fr 2fr;
+    row-gap: 10px;
+}
+
+
+/*Bloque Items*/
+
+.menuItems {
+    background: chocolate;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr;
+    justify-items: center;
+    align-items: center;
+    column-gap: 5px;
+    row-gap: 10px;
+}
+
+
+/*Titulo Items*/
+
+.menuItemsTitle {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+
+/*Grid de Item*/
+
+.menuItemsItem {
+    display: grid;
+    height: 90%;
+    width: 90%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+
+/*Bloque Museo*/
+
+.menuMuseum {
+    background: chocolate;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, 1fr);
+    justify-items: center;
+    align-items: center;
+    row-gap: 2px;
+}
+
+
+/*Titulo museo*/
+
+.menuMuseumTitle {
+    background: darkgray;
+    height: 90%;
+    width: 90%;
+}
+
+
+/*Items Museo*/
+
+.menuMuseumItem {
+    background: cyan;
+    height: 90%;
+    width: 90%;
+}
+
+
+/*
     CSS Bloque Central
     */
-    /* Bloque Central*/
-    
-    .mainBlock {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 4fr 1fr;
-        justify-items: center;
-        align-items: center;
-    }
-    /* Grid Tablero*/
-    
-    .board {
-        display: grid;
-        grid-template-columns: repeat(13, 1fr);
-        grid-template-rows: repeat(13, 1fr);
-        width: 95%;
-        height: 95%;
-    }
-    /*Tile*/
-    
-    .tile {
-        background-size: 100%;
-        border-radius: 5px;
-        margin: 1px;
-        transition: ease-in-out, 0.2s;
-    }
-    
-    .undigged {
-        background-image: url(../img/tex_tile_1.webp);
-    }
-    
-    .digged {
-        background-image: url(../img/tex_tile_2.webp);
-    }
-    
-    .undigged:hover {
-        transform: rotate(180deg) scale(1.1);
-    }
-    
-    .pwrItemImg {
-        max-width: 100%;
-        max-height: 100%;
-    }
-    /*
+
+
+/* Bloque Central*/
+
+.mainBlock {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 4fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+
+/* Grid Tablero*/
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    grid-template-rows: repeat(13, 1fr);
+    width: 95%;
+    height: 95%;
+}
+
+
+/*Tile*/
+
+.tile {
+    background-size: 100%;
+    border-radius: 5px;
+    margin: 1px;
+    transition: ease-in-out, 0.2s;
+}
+
+.undigged {
+    background-image: url(../img/tex_tile_1.webp);
+}
+
+.digged {
+    background-image: url(../img/tex_tile_2.webp);
+}
+
+.undigged:hover {
+    transform: rotate(180deg) scale(1.1);
+}
+
+.ItemImg {
+    max-width: 100%;
+    max-height: 100%;
+    z-index: 1;
+}
+
+.ItemImg-trans {
+    max-width: 80%;
+    max-height: 80%;
+    opacity: 0.25;
+}
+
+
+/*
         Clases de la barra de energia.
     */
-    /* Gas Restante*/
-    
-    .playerEnergy {
-        background: rgb(33, 121, 252);
-        border-radius: 25px;
-        display: grid;
-        width: 90%;
-        height: 90%;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 3fr;
-        justify-items: center;
-        align-items: center;
-        row-gap: 2px;
-    }
-    
-    .plyrNrgTitle {
-        background: rgb(252, 33, 234);
-        width: 90%;
-        height: 90%;
-        text-align: center;
-    }
-    
-    .plyrNrgBarBlock {
-        width: 90%;
-        height: 80%;
-    }
-    
-    .nrgBarBackground {
-        padding: 6px;
-        border-radius: 30px;
-        background: rgba(0, 0, 0, 0.25);
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
-        height: 90%;
-    }
-    
-    .nrg-bar {
-        height: 99%;
-        border-radius: 25px;
-        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
-    }
-    
-    .nrg-moved .nrg-bar {
-        width: 0%;
-        background-color: hsl(0, 80%, 50%);
-        transition: all .5s ease-in-out;
-    }
+
+
+/* Gas Restante*/
+
+.playerEnergy {
+    background: rgb(33, 121, 252);
+    border-radius: 25px;
+    display: grid;
+    width: 90%;
+    height: 90%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr;
+    justify-items: center;
+    align-items: center;
+    row-gap: 2px;
+}
+
+.plyrNrgTitle {
+    background: rgb(252, 33, 234);
+    width: 90%;
+    height: 90%;
+    text-align: center;
+}
+
+.plyrNrgBarBlock {
+    width: 90%;
+    height: 80%;
+}
+
+.nrgBarBackground {
+    padding: 6px;
+    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+    height: 90%;
+}
+
+.nrg-bar {
+    height: 99%;
+    border-radius: 25px;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+}
+
+.nrg-moved .nrg-bar {
+    width: 0%;
+    background-color: hsl(0, 80%, 50%);
+    transition: all .5s ease-in-out;
+}
