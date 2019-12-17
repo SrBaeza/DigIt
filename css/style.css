@@ -341,11 +341,11 @@ body {
 }
 
 .undigged {
-    background-image: url(./img/tex_tile_1.webp);
+    background-image: url(../img/tex_tile_1.webp);
 }
 
 .digged {
-    background-image: url(./img/tex_tile_2.webp);
+    background-image: url(../img/tex_tile_2.webp);
 }
 
 .undigged:hover {
