@@ -30,39 +30,39 @@ var timeValueIncrement = 20;
 var testItem1 = {
     itemName: "Shovel",
     itemType: "Item",
-    itemImg: "../img/shovel_0.webp",
+    itemImg: "./img/shovel_0.webp",
     itemPiece: [
-        { itemPieceID: "Shovel1", posx: 1, posy: 1, rot: "a", tileimg: "../img/shovel_1.webp" },
-        { itemPieceID: "Shovel2", posx: 2, posy: 1, rot: "a", tileimg: "../img/shovel_2.webp" },
-        { itemPieceID: "Shovel3", posx: 3, posy: 1, rot: "a", tileimg: "../img/shovel_3.webp" },
+        { itemPieceID: "Shovel1", posx: 1, posy: 1, rot: "a", tileimg: "./img/shovel_1.webp" },
+        { itemPieceID: "Shovel2", posx: 2, posy: 1, rot: "a", tileimg: "./img/shovel_2.webp" },
+        { itemPieceID: "Shovel3", posx: 3, posy: 1, rot: "a", tileimg: "./img/shovel_3.webp" },
     ]
 }
 var testItem2 = {
     itemName: "Bone",
     itemType: "Item",
-    itemImg: "../img/bone_0.webp",
+    itemImg: "./img/bone_0.webp",
     itemPiece: [
-        { itemPieceID: "Bone1", posx: 3, posy: 4, rot: "a", tileimg: "../img/bone_1.webp" },
-        { itemPieceID: "Bone2", posx: 4, posy: 4, rot: "a", tileimg: "../img/bone_2.webp" },
-        { itemPieceID: "Bone3", posx: 5, posy: 4, rot: "a", tileimg: "../img/bone_3.webp" },
+        { itemPieceID: "Bone1", posx: 3, posy: 4, rot: "a", tileimg: "./img/bone_1.webp" },
+        { itemPieceID: "Bone2", posx: 4, posy: 4, rot: "a", tileimg: "./img/bone_2.webp" },
+        { itemPieceID: "Bone3", posx: 5, posy: 4, rot: "a", tileimg: "./img/bone_3.webp" },
     ]
 }
 
 var testPowerF = {
     itemName: "Fuel",
     itemType: "Power",
-    itemImg: "../img/power_fuel.webp",
+    itemImg: "./img/power_fuel.webp",
     itemPiece: [
-        { itemPieceID: "PowerFuel", posx: 0, posy: 0, rot: "a", tileimg: "../img/power_fuel.webp" }
+        { itemPieceID: "PowerFuel", posx: 0, posy: 0, rot: "a", tileimg: "./img/power_fuel.webp" }
     ]
 }
 
 var testPowerT = {
     itemName: "Time",
     itemType: "Power",
-    itemImg: "../img/power_timer.webp",
+    itemImg: "./img/power_timer.webp",
     itemPiece: [
-        { itemPieceID: "PowerTime", posx: 0, posy: 1, rot: "a", tileimg: "../img/power_timer.webp" }
+        { itemPieceID: "PowerTime", posx: 0, posy: 1, rot: "a", tileimg: "./img/power_timer.webp" }
     ]
 }
 
@@ -221,11 +221,11 @@ var currerntPowerTime = 1;
 var powerArray = [{
     elementID: "PowerFuel",
     subelementID: "PowerFuelID",
-    imgsrc: "../img/power_fuel.webp"
+    imgsrc: "./img/power_fuel.webp"
 }, {
     elementID: "PowerTime",
     subelementID: "PowerTimeID",
-    imgsrc: "../img/power_timer.webp"
+    imgsrc: "./img/power_timer.webp"
 }]
 
 
