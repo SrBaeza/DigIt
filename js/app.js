@@ -146,6 +146,7 @@ function MakeTiles() {
 
 //Funciones de click on tile
 function tileClick() {
+
     //le quitamos el eventlistener para no poder hacerle click
     this.removeEventListener("click", tileClick);
 
@@ -153,17 +154,15 @@ function tileClick() {
     this.classList.remove("undigged");
     this.classList.add("digged");
 
-    //comprobamos la accion de la tile
-    tileCheck(this);
-}
+    //tomar los valores de posicion de la tile clickada
+    var tileXValue = this.dataset.row;
+    var tileYValue = this.dataset.column;
 
-//Funcion para resolver segun datos de la tile
-function tileCheck(currentTile) {
-
-    var tileXValue = currentTile.dataset.row;
-    var tileYValue = currentTile.dataset.column;
+    //reseteamos las variables
     var currentType = "";
     var currentPieceID = "";
+
+
 
     //comprobamos si la tile tiene algun item que mostrar
     itemCoordinates.forEach(function(item) {
@@ -182,9 +181,10 @@ function tileCheck(currentTile) {
             //añadimos los parametros de ruta la imagen
             newImg.src = item.ItemImg;
             //finalmente añadimos el div a la tile
-            currentTile.appendChild(newImg);
+            this.appendChild(newImg);
         }
-    });
+    }, this); //de esta manera pasamos la referencis dentro del foreach
+
 
     //comprobamos si tiene algun power
     switch (currentType) {
