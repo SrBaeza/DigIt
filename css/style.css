@@ -352,13 +352,17 @@ body {
     transform: rotate(180deg) scale(1.1);
 }
 
-.ItemImg {
+.itemImg {
     max-width: 100%;
     max-height: 100%;
     z-index: 1;
 }
 
-.ItemImg-trans {
+.itemImg.rot {
+    transform: rotate(-90deg);
+}
+
+.itemImg-trans {
     max-width: 80%;
     max-height: 80%;
     opacity: 0.25;

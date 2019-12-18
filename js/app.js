@@ -3,9 +3,6 @@
 //Array con los items del mapa actual
 var itemCoordinates = [];
 
-//Referencia al div del tablero
-var myBoard = document.getElementById("myBoard");
-
 //Referencia a la barra de energia en el codigo HTML
 var energyBar = document.getElementById("nrgBarID");
 //Valor Inicial de energia **no cambiar
@@ -15,10 +12,6 @@ var currentNrg;
 //Valor de restauracion de energia
 var nrgValueIncrement = 5;
 
-//Referencia al contador de tiempo en el codigo HTML
-var timer = document.querySelector(".currentTime");
-//Referencia al intervalo del contador interno de tiempo
-var myInterval;
 //Valor inicial del contador de tiempo
 var initTime = 180;
 //Referencia al valor actual de contador
@@ -32,9 +25,9 @@ var testItem1 = {
     itemType: "Item",
     itemImg: "./img/shovel_0.webp",
     itemPiece: [
-        { itemPieceID: "Shovel1", posx: 1, posy: 1, rot: "a", tileimg: "./img/shovel_1.webp" },
-        { itemPieceID: "Shovel2", posx: 2, posy: 1, rot: "a", tileimg: "./img/shovel_2.webp" },
-        { itemPieceID: "Shovel3", posx: 3, posy: 1, rot: "a", tileimg: "./img/shovel_3.webp" },
+        { ID: "Shovel1", posx: 1, posy: 1, tileimg: "./img/shovel_1.webp" },
+        { ID: "Shovel2", posx: 2, posy: 1, tileimg: "./img/shovel_2.webp" },
+        { ID: "Shovel3", posx: 3, posy: 1, tileimg: "./img/shovel_3.webp" },
     ]
 }
 var testItem2 = {
@@ -42,9 +35,9 @@ var testItem2 = {
     itemType: "Item",
     itemImg: "./img/bone_0.webp",
     itemPiece: [
-        { itemPieceID: "Bone1", posx: 3, posy: 4, rot: "a", tileimg: "./img/bone_1.webp" },
-        { itemPieceID: "Bone2", posx: 4, posy: 4, rot: "a", tileimg: "./img/bone_2.webp" },
-        { itemPieceID: "Bone3", posx: 5, posy: 4, rot: "a", tileimg: "./img/bone_3.webp" },
+        { ID: "Bone1", posx: 3, posy: 2, rot: "rot", tileimg: "./img/bone_1.webp" },
+        { ID: "Bone2", posx: 3, posy: 3, rot: "rot", tileimg: "./img/bone_2.webp" },
+        { ID: "Bone3", posx: 3, posy: 4, rot: "rot", tileimg: "./img/bone_3.webp" },
     ]
 }
 
@@ -53,7 +46,7 @@ var testPowerF = {
     itemType: "Power",
     itemImg: "./img/power_fuel.webp",
     itemPiece: [
-        { itemPieceID: "PowerFuel", posx: 0, posy: 0, rot: "a", tileimg: "./img/power_fuel.webp" }
+        { ID: "PowerFuel", posx: 0, posy: 0, tileimg: "./img/power_fuel.webp" }
     ]
 }
 
@@ -62,7 +55,7 @@ var testPowerT = {
     itemType: "Power",
     itemImg: "./img/power_timer.webp",
     itemPiece: [
-        { itemPieceID: "PowerTime", posx: 0, posy: 1, rot: "a", tileimg: "./img/power_timer.webp" }
+        { ID: "PowerTime", posx: 0, posy: 1, tileimg: "./img/power_timer.webp" }
     ]
 }
 
@@ -72,22 +65,38 @@ var thisMap = [testItem1, testItem2, testPowerF, testPowerT];
 /* FIN DE VARIABLES */
 
 
-
 /* PRIMERA LLAMADA DEL SCRIPT */
-document.body.onload = function() {
-    StartGame();
-}
+document.body.onload = (() => StartGame())
+
 
 //Inicializamos las funciones principales
 function StartGame() {
-    SetItemCoordinates(thisMap);
-    ResetTimer();
-    resetcurrentNrg();
+    SetItemCoordinates(thisMap); //inicializamos un array con el mapa que vayamos a utilizar
+    resetcurrentNrg(); //
     StartTimer();
     MakeTiles();
     MakePowers();
 }
 
+/* TIEMPO */
+
+// Iniciar temporizador
+function StartTimer(myInterval, timer = document.querySelector(".currentTime")) {
+    //reseteamos el contador
+    clearInterval(myInterval);
+    //resetear valor total de tiempo de juego
+    currentTime = initTime;
+    //generamos un intervalo
+    myInterval = setInterval(() => {
+        //Mostrar el valor en pantalla
+        timer.innerHTML = (Math.trunc(currentTime / 60)) + " mins " + (currentTime % 60) + " secs";
+        //restamos un segundo
+        currentTime--;
+        //comprobamos si se ha agotado el tiempo
+        if (currentTime <= 0) { console.log("Te has quedado sin tiempo"); }
+        //Intervalo sobre el cual se va a relanzar la funcion en milisegundos
+    }, 1000);
+}
 
 /* CREACION DEL TABLERO */
 
@@ -97,24 +106,26 @@ function SetItemCoordinates(currentMap) {
     itemCoordinates.length = 0;
 
     //para cada objeto dentro del array de mapa
-    currentMap.forEach(function(item) {
+    currentMap.forEach((item) => {
         //añadir para cada item dentro de itemPiece creamos un objeto de dos coordenadas en el array
-        item.itemPiece.forEach(function(piece) {
+        item.itemPiece.forEach((piece) => {
             itemCoordinates.push({
                 posX: piece.posx,
                 posY: piece.posy,
+                rotation: piece.rot,
                 itemType: item.itemType,
-                itemPieceID: piece.itemPieceID,
-                ItemImg: piece.tileimg
-            });
-        });
-    });
+                ID: piece.ID,
+                itemImg: piece.tileimg
+            })
+        })
+    })
 
 }
 
 
+
 //Funcion para crear las casillas del tablero
-function MakeTiles() {
+function MakeTiles(myBoard = document.getElementById("myBoard")) {
 
     //Loop eje X
     for (var x = 0; x < 13; x++) {
@@ -132,7 +143,6 @@ function MakeTiles() {
             // //añadir clase al elemento
             item.classList.add("tile", "undigged");
 
-
             //añadimos eventos del raton
             item.addEventListener("click", this.tileClick);
 
@@ -142,7 +152,44 @@ function MakeTiles() {
     }
 }
 
-/* Funciones de resolucion de casillas */
+//Crear los poweritems del menu izq
+function MakePowers() {
+
+    powerArray.forEach((power) => {
+
+        //creamos elemento de imagen
+        var newPower = document.createElement('img');
+
+        //añadimos clase al elemento img
+        newPower.classList.add("itemImg");
+
+        //añadimos los parametros de ruta la imagen
+        newPower.src = power.imgsrc;
+
+        //creamos elemento para el contador del power
+        var newPowerCounter = document.createElement('div');
+
+        //añadimos id
+        newPowerCounter.id = power.subelementID;
+
+        //añadimos clase 
+        newPowerCounter.classList.add("powerCounter");
+
+        //añadimos el contador inicial
+        newPowerCounter.textContent = "1";
+
+        //añadimos eventos del raton
+        document.getElementById(power.elementID).addEventListener("click", this.PlayerItemPlay);
+
+        //añadimos el elemento completo
+        document.getElementById(power.elementID).appendChild(newPower);
+        document.getElementById(power.elementID).appendChild(newPowerCounter);
+    })
+}
+
+
+
+/* TILE LOGIC */
 
 //Funciones de click on tile
 function tileClick() {
@@ -151,40 +198,37 @@ function tileClick() {
     this.removeEventListener("click", tileClick);
 
     //cambiamos clase para mostar la tile
-    this.classList.remove("undigged");
-    this.classList.add("digged");
-
-    //tomar los valores de posicion de la tile clickada
-    var tileXValue = this.dataset.row;
-    var tileYValue = this.dataset.column;
+    this.classList.replace("undigged", "digged")
 
     //reseteamos las variables
     var currentType = "";
     var currentPieceID = "";
 
-
-
     //comprobamos si la tile tiene algun item que mostrar
-    itemCoordinates.forEach(function(item) {
+    itemCoordinates.forEach((item) => {
         //si las coordinadas coinciden con algun elemento del array
-        if (item.posX == tileXValue && item.posY == tileYValue) {
+        if (item.posX == this.dataset.row && item.posY == this.dataset.column) {
 
             //Guardamos el tipo de tile que es y su ID
             currentType = item.itemType;
-            currentPieceID = item.itemPieceID;
+            currentPieceID = item.ID;
 
-            /*añadimos la imagen*/
             //creamos el elemento de la imagen       
             var newImg = document.createElement('img');
+
             //añadimos clase al elemento img
-            newImg.classList.add("ItemImg");
+            newImg.classList.add("itemImg");
+
+            //añadimos clase si la imagen tiene que estar girada
+            if (typeof item.rotation !== "undefined") { newImg.classList.add(item.rotation); }
+
             //añadimos los parametros de ruta la imagen
-            newImg.src = item.ItemImg;
+            newImg.src = item.itemImg;
+
             //finalmente añadimos el div a la tile
             this.appendChild(newImg);
         }
-    }, this); //de esta manera pasamos la referencis dentro del foreach
-
+    })
 
     //comprobamos si tiene algun power
     switch (currentType) {
@@ -229,38 +273,6 @@ var powerArray = [{
 }]
 
 
-//Crear los poweritems del menu izq
-function MakePowers() {
-
-    powerArray.forEach(function(power) {
-
-        //creamos elemento de imagen
-        var newPower = document.createElement('img');
-        //añadimos clase al elemento img
-        newPower.classList.add("ItemImg");
-        //añadimos los parametros de ruta la imagen
-        newPower.src = power.imgsrc;
-        //añadimos eventos del raton
-        newPower.addEventListener("click", this.PlayerItemPlay);
-
-        //creamos elemento para el contador del power
-        var newPowerCounter = document.createElement('div');
-        //añadimos id
-        newPowerCounter.id = power.subelementID;
-        newPowerCounter.classList.add("powerCounter");
-        //añadimos el contador inicial
-        newPowerCounter.textContent = "1";
-
-        //añadimos el elemento completo
-        document.getElementById(power.elementID).appendChild(newPower);
-        document.getElementById(power.elementID).appendChild(newPowerCounter);
-    });
-}
-
-//actualizar power en la web
-function UpdatePower() {
-
-}
 
 /* Funciones de la barra de energia */
 
@@ -289,7 +301,7 @@ function nrgAdd() {
 function nrgSubstract() {
     currentNrg = currentNrg - nrgValueIncrement;
     if (currentNrg <= 0) {
-        alert("youloose");
+        console.log("youloose");
     } else {
         energyBar.style.width = (currentNrg) + "%";
         energyBar.style.backgroundColor = "hsl(" + currentNrg + ", 80%, 50%)";
@@ -298,36 +310,13 @@ function nrgSubstract() {
 
 
 
-/* Funciones de temporizador del juego*/
 
-// Iniciar temporizador
-function StartTimer() {
-    myInterval = setInterval(
-        function() {
-            //Mostrar el valor en pantalla
-            timer.innerHTML = (Math.trunc(currentTime / 60)) + " mins " + (currentTime % 60) + " secs";
-            //restamos un segundo
-            currentTime--;
-            //comprobamos si se ha agotado el tiempo
-            if (currentTime <= 0) { window.alert("Te has quedado sin tiempo"); }
-            //Intervalo sobre el cual se va a relanzar la funcion en milisegundos
-        }, 1000);
-}
-// Resetear Temporizador
-function ResetTimer() {
-    //reseteamos el contador
-    clearInterval(myInterval);
-    //resetear valor total de tiempo de juego
-    currentTime = initTime;
-    //primer valor mostrado en pantalla
-    timer.innerHTML = (Math.trunc(currentTime / 60)) + " mins " + (currentTime % 60) + " secs";
-}
 
 //Funcion para añadir tiempo al contador
 function timeAdd() {
     //Comprobamos si al añadir tiempo nos saldriamos del maximo
     if (currentTime >= initTime - timeValueIncrement) {
-        window.alert("Tiempo maximo alcanzado");
+        console.log("Tiempo maximo alcanzado");
     } else {
         //añadimos tiempo
         currentTime = currentTime + timeValueIncrement;
@@ -336,15 +325,19 @@ function timeAdd() {
 
 //funcion para el item del menu izq
 function PlayerItemPlay() {
-    //comprobamos que tipo de power es
-    switch (this.subelementID) {
-        case "PowerFuelID":
-            //vemos si tenemos 
-            if (currentPowerFuel >= 1) {
-                currentPowerFuel--;
-                nrgAdd();
-            };
-    }
 
+    //comprobamos que tipo de power es
+    switch (this.id) {
+        case "PowerFuel":
+            console.log("Power Item");
+            break;
+        case "PowerTime":
+            console.log("Time Item");
+            break;
+    }
+}
+
+//actualizar power en la web
+function UpdatePower() {
 
 }
