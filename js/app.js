@@ -40,6 +40,256 @@ var testItem2 = {
         { ID: "Bone3", posx: 3, posy: 4, rot: "rot", tileimg: "./img/bone_3.webp" },
     ]
 }
+var testItem3 = {
+    itemName: "BottleCup",
+    itemType: "Item",
+    itemImg: "./img/bottlecup_0.webp",
+    itemPiece: [
+        { ID: "Bottlecup1", posx: 1, posy: 1, tileimg: "./img/bottlecup_1.webp" },
+        { ID: "Bottlecup2", posx: 2, posy: 1, tileimg: "./img/bottlecup_2.webp" },
+        { ID: "Bottlecup3", posx: 3, posy: 1, tileimg: "./img/bottlecup_3.webp" },
+    ]
+}
+var testItem4 = {
+    itemName: "Bug",
+    itemType: "Item",
+    itemImg: "./img/bug_0.webp",
+    itemPiece: [
+        { ID: "Bug1", posx: 1, posy: 1, tileimg: "./img/bug_1.webp" },
+        { ID: "Bug2", posx: 2, posy: 1, tileimg: "./img/bug_2.webp" },
+        { ID: "Bug3", posx: 3, posy: 1, tileimg: "./img/bug_3.webp" },
+    ]
+}
+var testItem5 = {
+    itemName: "Bullet",
+    itemType: "Item",
+    itemImg: "./img/bullet_0.webp",
+    itemPiece: [
+        { ID: "Bullet1", posx: 1, posy: 1, tileimg: "./img/bullet_1.webp" },
+        { ID: "Bullet2", posx: 2, posy: 1, tileimg: "./img/bullet_2.webp" },
+        { ID: "Bullet3", posx: 3, posy: 1, tileimg: "./img/bullet_3.webp" },
+    ]
+}
+var testItem6 = {
+    itemName: "Camera",
+    itemType: "Item",
+    itemImg: "./img/camera_0.webp",
+    itemPiece: [
+        { ID: "Camera1", posx: 1, posy: 1, tileimg: "./img/camera_1.webp" },
+        { ID: "Camera2", posx: 2, posy: 1, tileimg: "./img/camera_2.webp" },
+        { ID: "Camera3", posx: 3, posy: 1, tileimg: "./img/camera_3.webp" },
+    ]
+}
+var testItem7 = {
+    itemName: "Can",
+    itemType: "Item",
+    itemImg: "./img/can_0.webp",
+    itemPiece: [
+        { ID: "Can1", posx: 1, posy: 1, tileimg: "./img/can_1.webp" },
+        { ID: "Can2", posx: 2, posy: 1, tileimg: "./img/can_2.webp" },
+        { ID: "Can3", posx: 3, posy: 1, tileimg: "./img/can_3.webp" },
+    ]
+}
+var testItem8 = {
+    itemName: "Cap",
+    itemType: "Item",
+    itemImg: "./img/cap_0.webp",
+    itemPiece: [
+        { ID: "Cap1", posx: 1, posy: 1, tileimg: "./img/cap_1.webp" },
+        { ID: "Cap2", posx: 2, posy: 1, tileimg: "./img/cap_2.webp" },
+        { ID: "Cap3", posx: 3, posy: 1, tileimg: "./img/cap_3.webp" },
+    ]
+}
+var testItem10 = {
+    itemName: "Chest",
+    itemType: "Item",
+    itemImg: "./img/chest_0.webp",
+    itemPiece: [
+        { ID: "Chest1", posx: 1, posy: 1, tileimg: "./img/chest_1.webp" },
+        { ID: "Chest2", posx: 2, posy: 1, tileimg: "./img/chest_2.webp" },
+        { ID: "Chest3", posx: 3, posy: 1, tileimg: "./img/chest_3.webp" },
+    ]
+}
+var testItem11 = {
+    itemName: "Cloth",
+    itemType: "Item",
+    itemImg: "./img/cloth_0.webp",
+    itemPiece: [
+        { ID: "Cloth1", posx: 1, posy: 1, tileimg: "./img/cloth_1.webp" },
+        { ID: "Cloth2", posx: 2, posy: 1, tileimg: "./img/cloth_2.webp" },
+        { ID: "Cloth3", posx: 3, posy: 1, tileimg: "./img/cloth_3.webp" },
+    ]
+}
+var testItem12 = {
+    itemName: "Coin",
+    itemType: "Item",
+    itemImg: "./img/coin_0.webp",
+    itemPiece: [
+        { ID: "Coin1", posx: 1, posy: 1, tileimg: "./img/coin_1.webp" },
+        { ID: "Coin2", posx: 2, posy: 1, tileimg: "./img/coin_2.webp" },
+        { ID: "Coin3", posx: 3, posy: 1, tileimg: "./img/coin_3.webp" },
+    ]
+}
+var testItem13 = {
+    itemName: "Cuaderno",
+    itemType: "Item",
+    itemImg: "./img/cuaderno_0.webp",
+    itemPiece: [
+        { ID: "Cuaderno1", posx: 1, posy: 1, tileimg: "./img/cuaderno_1.webp" },
+        { ID: "Cuaderno2", posx: 2, posy: 1, tileimg: "./img/cuaderno_2.webp" },
+        { ID: "Cuaderno3", posx: 3, posy: 1, tileimg: "./img/cuaderno_3.webp" },
+    ]
+}
+var testItem14 = {
+    itemName: "Fork",
+    itemType: "Item",
+    itemImg: "./img/fork_0.webp",
+    itemPiece: [
+        { ID: "Fork1", posx: 1, posy: 1, tileimg: "./img/fork_1.webp" },
+        { ID: "Fork2", posx: 2, posy: 1, tileimg: "./img/fork_2.webp" },
+        { ID: "Fork3", posx: 3, posy: 1, tileimg: "./img/fork_3.webp" },
+    ]
+}
+var testItem15 = {
+    itemName: "Fosil",
+    itemType: "Item",
+    itemImg: "./img/fosil_0.webp",
+    itemPiece: [
+        { ID: "Fosil1", posx: 1, posy: 1, tileimg: "./img/fosil_1.webp" },
+        { ID: "Fosil2", posx: 2, posy: 1, tileimg: "./img/fosil_2.webp" },
+        { ID: "Fosil3", posx: 3, posy: 1, tileimg: "./img/fosil_3.webp" },
+    ]
+}
+var testItem16 = {
+    itemName: "GoPro",
+    itemType: "Item",
+    itemImg: "./img/gopro_0.webp",
+    itemPiece: [
+        { ID: "Gopro1", posx: 1, posy: 1, tileimg: "./img/gopro_1.webp" },
+        { ID: "Gopro2", posx: 2, posy: 1, tileimg: "./img/gopro_2.webp" },
+        { ID: "Gopro3", posx: 3, posy: 1, tileimg: "./img/gopro_3.webp" },
+    ]
+}
+var testItem17 = {
+    itemName: "HoeShoe",
+    itemType: "Item",
+    itemImg: "./img/hoeshoe_0.webp",
+    itemPiece: [
+        { ID: "Hoeshoe1", posx: 1, posy: 1, tileimg: "./img/hoeshoe_1.webp" },
+        { ID: "Hoeshoe2", posx: 2, posy: 1, tileimg: "./img/hoeshoe_2.webp" },
+        { ID: "Hoeshoe3", posx: 3, posy: 1, tileimg: "./img/hoeshoe_3.webp" },
+    ]
+}
+var testItem18 = {
+    itemName: "Ingot",
+    itemType: "Item",
+    itemImg: "./img/ingot_0.webp",
+    itemPiece: [
+        { ID: "Ingot1", posx: 1, posy: 1, tileimg: "./img/ingot_1.webp" },
+        { ID: "Ingot2", posx: 2, posy: 1, tileimg: "./img/ingot_2.webp" },
+        { ID: "Ingot3", posx: 3, posy: 1, tileimg: "./img/ingot_3.webp" },
+    ]
+}
+var testItem19 = {
+    itemName: "Log",
+    itemType: "Item",
+    itemImg: "./img/log_0.webp",
+    itemPiece: [
+        { ID: "Log1", posx: 1, posy: 1, tileimg: "./img/log_1.webp" },
+        { ID: "Log2", posx: 2, posy: 1, tileimg: "./img/log_2.webp" },
+        { ID: "Log3", posx: 3, posy: 1, tileimg: "./img/log_3.webp" },
+    ]
+}
+var testItem20 = {
+    itemName: "Map",
+    itemType: "Item",
+    itemImg: "./img/map_0.webp",
+    itemPiece: [
+        { ID: "Map1", posx: 1, posy: 1, tileimg: "./img/map_1.webp" },
+        { ID: "Map2", posx: 2, posy: 1, tileimg: "./img/map_2.webp" },
+        { ID: "Map3", posx: 3, posy: 1, tileimg: "./img/map_3.webp" },
+    ]
+}
+var testItem21 = {
+    itemName: "Mobile",
+    itemType: "Item",
+    itemImg: "./img/mobile_0.webp",
+    itemPiece: [
+        { ID: "Mobile1", posx: 1, posy: 1, tileimg: "./img/mobile_1.webp" },
+        { ID: "Mobile2", posx: 2, posy: 1, tileimg: "./img/mobile_2.webp" },
+        { ID: "Mobile3", posx: 3, posy: 1, tileimg: "./img/mobile_3.webp" },
+    ]
+}
+var testItem22 = {
+    itemName: "Rock",
+    itemType: "Item",
+    itemImg: "./img/rock_0.webp",
+    itemPiece: [
+        { ID: "Rock1", posx: 1, posy: 1, tileimg: "./img/rock_1.webp" },
+        { ID: "Rock2", posx: 2, posy: 1, tileimg: "./img/rock_2.webp" },
+        { ID: "Rock3", posx: 3, posy: 1, tileimg: "./img/rock_3.webp" },
+    ]
+}
+var testItem23 = {
+    itemName: "Scissors",
+    itemType: "Item",
+    itemImg: "./img/scissors_0.webp",
+    itemPiece: [
+        { ID: "Scissors1", posx: 1, posy: 1, tileimg: "./img/scissors_1.webp" },
+        { ID: "Scissors2", posx: 2, posy: 1, tileimg: "./img/scissors_2.webp" },
+        { ID: "Scissors3", posx: 3, posy: 1, tileimg: "./img/scissors_3.webp" },
+    ]
+}
+var testItem24 = {
+    itemName: "Sign",
+    itemType: "Item",
+    itemImg: "./img/sign_0.webp",
+    itemPiece: [
+        { ID: "Sign1", posx: 1, posy: 1, tileimg: "./img/sign_1.webp" },
+        { ID: "Sign2", posx: 2, posy: 1, tileimg: "./img/sign_2.webp" },
+        { ID: "Sign3", posx: 3, posy: 1, tileimg: "./img/sign_3.webp" },
+    ]
+}
+var testItem25 = {
+    itemName: "Skull",
+    itemType: "Item",
+    itemImg: "./img/skull_0.webp",
+    itemPiece: [
+        { ID: "Skull1", posx: 1, posy: 1, tileimg: "./img/skull_1.webp" },
+        { ID: "Skull2", posx: 2, posy: 1, tileimg: "./img/skull_2.webp" },
+        { ID: "Skull3", posx: 3, posy: 1, tileimg: "./img/skull_3.webp" },
+    ]
+}
+var testItem26 = {
+    itemName: "Snake",
+    itemType: "Item",
+    itemImg: "./img/snake_0.webp",
+    itemPiece: [
+        { ID: "Snake1", posx: 1, posy: 1, tileimg: "./img/snake_1.webp" },
+        { ID: "Snake2", posx: 2, posy: 1, tileimg: "./img/snake_2.webp" },
+        { ID: "Snake3", posx: 3, posy: 1, tileimg: "./img/snake_3.webp" },
+    ]
+}
+var testItem27 = {
+    itemName: "Tobaco",
+    itemType: "Item",
+    itemImg: "./img/tobaco_0.webp",
+    itemPiece: [
+        { ID: "Tobaco1", posx: 1, posy: 1, tileimg: "./img/tobaco_1.webp" },
+        { ID: "Tobaco2", posx: 2, posy: 1, tileimg: "./img/tobaco_2.webp" },
+        { ID: "Tobaco3", posx: 3, posy: 1, tileimg: "./img/tobaco_3.webp" },
+    ]
+}
+var testItem28 = {
+    itemName: "Wheel",
+    itemType: "Item",
+    itemImg: "./img/wheel_0.webp",
+    itemPiece: [
+        { ID: "Wheel1", posx: 1, posy: 1, tileimg: "./img/wheel_1.webp" },
+        { ID: "Wheel2", posx: 2, posy: 1, tileimg: "./img/wheel_2.webp" },
+        { ID: "Wheel3", posx: 3, posy: 1, tileimg: "./img/wheel_3.webp" },
+    ]
+}
 
 var testPowerF = {
     itemName: "Fuel",
