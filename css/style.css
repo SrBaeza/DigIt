@@ -106,7 +106,7 @@ body {
 
 /*Bloque Powers*/
 
-.menuPowers {
+.mnPowers {
     background: #b5b5b3;
     border-radius: 15px;
     display: grid;
@@ -118,7 +118,7 @@ body {
 
 /*Titulo Powers*/
 
-.menuPowersTitle {
+.mnPowers-title {
     grid-column-start: 1;
     grid-column-end: 3;
 }
@@ -126,7 +126,7 @@ body {
 
 /*Powers*/
 
-.playerPowers {
+.mnPowers-item {
     background: green;
     border-radius: 15px;
     width: 80%;
@@ -240,7 +240,7 @@ body {
 
 /*Bloque Items*/
 
-.menuItems {
+.mnObjetos {
     background: chocolate;
     border-radius: 15px;
     display: grid;
@@ -255,7 +255,7 @@ body {
 
 /*Titulo Items*/
 
-.menuItemsTitle {
+.mnObjetos-title {
     grid-column-start: 1;
     grid-column-end: 3;
 }
@@ -263,7 +263,7 @@ body {
 
 /*Grid de Item*/
 
-.menuItemsItem {
+.mnObjetos-item {
     display: grid;
     height: 90%;
     width: 90%;
@@ -324,10 +324,15 @@ body {
 
 .board {
     display: grid;
-    grid-template-columns: repeat(13, 1fr);
-    grid-template-rows: repeat(13, 1fr);
+    grid-template-columns: repeat(var(--boardX), 1fr);
+    grid-template-rows: repeat(var(--boardY), 1fr);
     width: 95%;
     height: 95%;
+}
+
+:root {
+    --boardX: 10;
+    --boardY: 10;
 }
 
 
@@ -338,6 +343,9 @@ body {
     border-radius: 5px;
     margin: 1px;
     transition: ease-in-out, 0.2s;
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 .undigged {
@@ -353,9 +361,9 @@ body {
 }
 
 .itemImg {
-    max-width: 100%;
-    max-height: 100%;
     z-index: 1;
+    width: 90%;
+    height: 90%;
 }
 
 .itemImg.rot {
@@ -364,7 +372,7 @@ body {
 
 .itemImg-trans {
     max-width: 80%;
-    max-height: 80%;
+    max-height: auto;
     opacity: 0.25;
 }
 
