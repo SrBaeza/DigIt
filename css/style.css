@@ -366,8 +366,20 @@ body {
     height: 90%;
 }
 
-.itemImg.rot {
-    transform: rotate(-90deg);
+.itemImg.rot-0 {
+    transform: rotate(0);
+}
+
+.itemImg.rot-1 {
+    transform: rotate(0);
+}
+
+.itemImg.rot-2 {
+    transform: rotate(+90deg);
+}
+
+.itemImg.rot-3 {
+    transform: rotate(+180deg);
 }
 
 .itemImg-trans {

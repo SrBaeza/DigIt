@@ -31,7 +31,6 @@ var timeValueIncrement = 20;
 /* FIN DE VARIABLES */
 
 
-
 /* >>FUNCION PRINCIPAL DEL SCRIPT */
 document.body.onload = (() => StartGame())
 
@@ -40,10 +39,10 @@ document.body.onload = (() => StartGame())
 function StartGame() {
     SetMapSize();
     MakeTiles();
-    MakePowers();
+    MakeUI();
     SetMatch();
     // SetItemCoordinates(thisMap); //inicializamos un array con el mapa que vayamos a utilizar
-    resetcurrentNrg(); //
+    // resetcurrentNrg(); //
     StartTimer();
 }
 
@@ -86,7 +85,7 @@ function MakeTiles(myBoard = document.getElementById("myBoard")) {
 }
 
 //Crear los poweritems del menu izq
-function MakePowers() {
+function MakeUI() {
 
     powerArray.forEach((power) => {
 
@@ -128,9 +127,8 @@ function MakePowers() {
 function SetMatch() {
 
     //randomizamos el catalogo
-    var randomMaster = RandomizeArray(masterItem);
+    let randomMaster = RandomizeArray(masterItem);
     //sacamos objetos y los establecemos en diferentes mapas
-    console.log(randomMaster);
     while (randomMaster.length > 0) {
         stageMaster.push(CreateLevel(randomMaster, itemsPerLevel));
     }
@@ -141,8 +139,6 @@ function SetMatch() {
 // Random Fisher-Yates
 // https://www.youtube.com/watch?v=tLxBwSL3lPQ
 function RandomizeArray(originalItemArray) {
-    // array = AssignRandomRotation(originalItemArray);
-
     var currentIndex = originalItemArray.length,
         currentRandom, tempObject;
     while (--currentIndex > 0) {
@@ -154,133 +150,93 @@ function RandomizeArray(originalItemArray) {
     return originalItemArray;
 }
 
-function AssignRandomRotation(originalItemList) {
-
-    originalItemList.forEach(originalItem => {
-        switch (Math.floor((Math.random() * 4) + 1)) {
-            case 1:
-                console.log("is 1");
-                break;
-            case 2:
-                console.log("is 2");
-                break;
-            case 3:
-                console.log("is 3");
-                break;
-            case 4:
-                console.log("is 4");
-                break;
-            default:
-        }
-        return originalItemList
-    })
-
-}
-
 //Saca objetos del array random y los coloca en un stage
 function CreateLevel(randomMaster, numOfItems) {
+    //esta comprobacion hace que el ultimo nivel tenga los objetos restantes
     if (numOfItems > randomMaster.length) { numOfItems = randomMaster.length }
-    var currentLevel = [];
+
+    let currentLevel = [];
+    //Por cada objeto comprobamos si se puede colocar, asignamos posicion y rotacion, y finalmente lo añadimos al array de este nivel
     do {
-        var newItemOrigin = CheckTileAvailability(currentLevel);
-        var currentItem = randomMaster.pop();
-        var modifiedItem = SetPiecePosition(currentItem, newItemOrigin);
-        currentLevel.push(modifiedItem);
+        //añadimos el item aprobado al array de objetos de nivel
+        currentLevel.push(ItemCreator(randomMaster.pop(), currentLevel))
     } while (--numOfItems > 0)
     return currentLevel;
 }
 
 //comprueba que no hay objectos adyacentes a un punto de origen random
-function CheckTileAvailability(currentLevel) {
-    var newOrigin;
+function ItemCreator(currentItem, currentLevel) {
+    //si es el primer objeto se coloca sin comprobacion
     if (currentLevel.length <= 0) {
-        newOrigin = GetRandomInBoard();
-        return newOrigin
+
+        //sacamos el ultimo item del array y le asignamos valores de localizacion aleatorios
+        return AssignRandomPositionToItem(currentItem)
+
+        //Para el resto de objectos actualizamos la lista de objetos presentes en el nivel y comprobamos si esta disponible
     } else {
-        var positionTaken = UpdateLevelItemPosition(currentLevel);
-        newOrigin = CheckNeighborhood(currentLevel, positionTaken);
-        return newOrigin
+        //Creamos un array con todos las posiciones ya ocupados por otros items
+        let currentItemsInLevelPos = currentLevel.map(item => item.piece.map(pieceList => pieceList.pos)).flat();
+
+        // var positionTaken = UpdateLevelItemPosition(currentLevel);
+        let approvedItem = FindAPlace(currentItem, currentLevel);
+
+        return approvedItem
     }
 }
 
-//Calcula posiciones aleatorias dentro de las dimensiones del tablero
-function GetRandomInBoard() {
-    return {
-        x: Math.floor((Math.random() * (boardSize.x - 1)) + 1),
-        y: Math.floor((Math.random() * (boardSize.y - 1)) + 1)
-    }
-}
+function FindAPlace(originalItem, positionTaken) {
 
-function UpdateLevelItemPosition(currentLevel) {
-    var positionTaken = [];
-    currentLevel.forEach(item => {
-        item.piece.forEach(piece => {
-            positionTaken.push({
-                x: (piece.pos.x),
-                y: (piece.pos.y)
-            });
-        })
-    })
-    return positionTaken
-}
+    //Aplicamos ofset de rotacion y posicion al objeto proporcionado
+    let newItem = AssignRandomPositionToItem(originalItem);
 
-function CheckNeighborhood(currentLevel, positionTaken) {
+    //Hacemos un array con las posiciones que va a ocupar nuestro item
+    let itemPosList = newItem.piece.map(piece => piece.pos);
 
-    //nuevo random cada vez que se genera
-    currentOrigin = GetRandomInBoard();
-
-    //generamos un array con todas las posiciones basadas en el nuevo origen
-    var newItemPositions = UpdateNewItemPosition(currentOrigin);
-
-    var isTileAreaTaken = positionTaken.some(alreadyOnLevel => newItemPositions.some(newInLevel => JSON.stringify(alreadyOnLevel) === JSON.stringify(newInLevel)));
+    //Comprobamos que ningun valor este cogido ya en el tablero
+    let isPositionTaken = positionTaken.some(takenPos => itemPosList.some(itemPos => JSON.stringify(takenPos) === JSON.stringify(itemPos)));
 
     //con el resultado final mandamos de vuelta las coordenadas y 
-    if (isTileAreaTaken === false) {
-        return currentOrigin
+    if (isPositionTaken) {
+        FindAPlace(originalItem, positionTaken);
     } else {
-        CheckNeighborhood(currentLevel, positionTaken);
-        return currentOrigin
+        return newItem
     }
 }
 
-function UpdateNewItemPosition(randomPosition) {
-    var newItemPositions = [];
-    [-1, 0, 1].forEach(currentX => {
-        [-1, 0, 1].forEach(currentY => {
-            newItemPositions.push({
-                x: (randomPosition.x + currentX),
-                y: (randomPosition.y + currentY)
-            });
-        })
-    })
-    return newItemPositions
-}
+function AssignRandomPositionToItem(item) {
+    //un random para rotacion de 0 a 3
+    let rotRandom = Math.floor((Math.random() * 3));
 
+    //Un random para posicion dentro de los limites del tablero
+    let posRandom = {
+        x: Math.floor((Math.random() * (boardSize.x - 1)) + 1),
+        y: Math.floor((Math.random() * (boardSize.y - 1)) + 1)
+    };
 
+    //creamos array temporal con la posicion y rotacion random aplicada
+    let newLocationArray = [];
+    let finalLocationArray = [];
 
-function SetPiecePosition(currentItem, availableOrigin) {
-    console.log(currentItem);
-    currentItem.piece.forEach(piece => {
-        piece.pos.x = (availableOrigin.x + piece.pos.x);
-        piece.pos.y = (availableOrigin.y + piece.pos.y);
+    ///creamos un array con todas las posiciones de 
+    defaultLocation[rotRandom].forEach(element => {
+        newLocationArray.push({
+            pos: { x: (element.pos.x + posRandom.x), y: (element.pos.y + posRandom.y) },
+            rot: rotRandom
+        });
     });
 
-    return currentItem
-}
+    //añadimos pos y rot a las piezas del objeto y mandamos al array las que tengan ID
+    item.piece.forEach((thisPiece, i) => {
+        item.piece[i] = {...thisPiece, ...newLocationArray[i] };
+        if (typeof thisPiece.ID !== "undefined") {
+            finalLocationArray.push(item.piece[i]);
+        }
+    });
 
-function UpdateNewItemPosition(randomPosition) {
-    var newItemPositions = [];
-    [-1, 0, 1].forEach(currentX => {
-        [-1, 0, 1].forEach(currentY => {
-            newItemPositions.push({
-                x: (randomPosition.x + currentX),
-                y: (randomPosition.y + currentY)
-            });
-        })
-    })
-    return newItemPositions
+    //sustituimos las propiedas de pieza por el array que solo contiene ids
+    item.piece = finalLocationArray;
+    return item
 }
-
 
 /** << FUNCIONES PARA LA CREACION PROCEDURAL DE LOS NIVELES E ITEMS  */
 
@@ -317,19 +273,11 @@ function tileClick() {
     //cambiamos clase para mostar la tile
     this.classList.replace("undigged", "digged")
 
-    //reseteamos las variables
-    var currentType = "";
-    var currentPieceID = "";
-    console.log(stageMaster[currentPlayerLevel]);
     //comprobamos si la tile tiene algun item que mostrar
     stageMaster[currentPlayerLevel].forEach((item) => {
-        console.log(item);
+
         item.piece.forEach(piece => {
             if (piece.pos.x == this.dataset.row && piece.pos.y == this.dataset.column) {
-                console.log(true);
-                //Guardamos el tipo de tile que es y su ID
-                currentType = item.type;
-                currentPieceID = item.ID;
 
                 //creamos el elemento de la imagen       
                 var newImg = document.createElement('img');
@@ -338,7 +286,7 @@ function tileClick() {
                 newImg.classList.add("itemImg");
 
                 //añadimos clase si la imagen tiene que estar girada
-                if (typeof piece.rot !== "undefined") { newImg.classList.add(piece.rot); }
+                newImg.classList.add("rot-" + piece.rot);
 
                 //añadimos los parametros de ruta la imagen
                 newImg.src = piece.img;
@@ -366,68 +314,68 @@ var powerArray = [{
 
 
 
-/* Funciones de la barra de energia */
+// /* Funciones de la barra de energia */
 
-//Funcion para resetear la variable de energia al valor inicial
-function resetcurrentNrg() {
-    currentNrg = initNrg;
-    energyBar.style.width = currentNrg + "%";
-    energyBar.style.backgroundColor = "hsl(" + (currentNrg - nrgValueIncrement) + ", 80%, 50%)";
+// //Funcion para resetear la variable de energia al valor inicial
+// function resetcurrentNrg() {
+//     currentNrg = initNrg;
+//     energyBar.style.width = currentNrg + "%";
+//     energyBar.style.backgroundColor = "hsl(" + (currentNrg - nrgValueIncrement) + ", 80%, 50%)";
 
-}
+// }
 
-//funcion para restaurar energia
-function nrgAdd() {
-    //comprobamos que la nrg no esta completa
-    if (currentNrg >= 100) {
-        currentPowerFuel++;
-    } else {
-        currentNrg = currentNrg + nrgValueIncrement;
-        energyBar.style.width = (currentNrg) + "%";
-        energyBar.style.backgroundColor = "hsl(" + currentNrg + ", 80%, 50%)";
+// //funcion para restaurar energia
+// function nrgAdd() {
+//     //comprobamos que la nrg no esta completa
+//     if (currentNrg >= 100) {
+//         currentPowerFuel++;
+//     } else {
+//         currentNrg = currentNrg + nrgValueIncrement;
+//         energyBar.style.width = (currentNrg) + "%";
+//         energyBar.style.backgroundColor = "hsl(" + currentNrg + ", 80%, 50%)";
 
-    }
-}
+//     }
+// }
 
-//funcion para consumir energia
-function nrgSubstract() {
-    currentNrg = currentNrg - nrgValueIncrement;
-    if (currentNrg <= 0) {
-        console.log("youloose");
-    } else {
-        energyBar.style.width = (currentNrg) + "%";
-        energyBar.style.backgroundColor = "hsl(" + currentNrg + ", 80%, 50%)";
-    }
-}
-
-
+// //funcion para consumir energia
+// function nrgSubstract() {
+//     currentNrg = currentNrg - nrgValueIncrement;
+//     if (currentNrg <= 0) {
+//         console.log("youloose");
+//     } else {
+//         energyBar.style.width = (currentNrg) + "%";
+//         energyBar.style.backgroundColor = "hsl(" + currentNrg + ", 80%, 50%)";
+//     }
+// }
 
 
 
-//Funcion para añadir tiempo al contador
-function timeAdd() {
-    //Comprobamos si al añadir tiempo nos saldriamos del maximo
-    if (currentTime >= initTime - timeValueIncrement) {
-        console.log("Tiempo maximo alcanzado");
-    } else {
-        //añadimos tiempo
-        currentTime = currentTime + timeValueIncrement;
-    }
-}
 
-//funcion para el item del menu izq
-function PlayerItemPlay() {
 
-    //comprobamos que tipo de power es
-    switch (this.id) {
-        case "PowerFuel":
-            console.log("Power Item");
-            break;
-        case "PowerTime":
-            console.log("Time Item");
-            break;
-    }
-}
+// //Funcion para añadir tiempo al contador
+// function timeAdd() {
+//     //Comprobamos si al añadir tiempo nos saldriamos del maximo
+//     if (currentTime >= initTime - timeValueIncrement) {
+//         console.log("Tiempo maximo alcanzado");
+//     } else {
+//         //añadimos tiempo
+//         currentTime = currentTime + timeValueIncrement;
+//     }
+// }
+
+// //funcion para el item del menu izq
+// function PlayerItemPlay() {
+
+//     //comprobamos que tipo de power es
+//     switch (this.id) {
+//         case "PowerFuel":
+//             console.log("Power Item");
+//             break;
+//         case "PowerTime":
+//             console.log("Time Item");
+//             break;
+//     }
+// }
 
 
 
@@ -435,65 +383,65 @@ function PlayerItemPlay() {
 
 /* ARRAY PRINCIPAL CON TODOS LOS OBJETOS DE JUEGO*/
 
-var masterItem = [{
+const masterItem = [{
         imgSrc: "./img/wheel_0.webp",
         name: "wheel",
         type: "Item",
         piece: [
-            { pos: { x: -1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: +1 }, img: "./img/question_01.webp" },
-            { ID: "Wheel1", pos: { x: 0, y: -1 }, img: "./img/wheel_1.webp" },
-            { ID: "Wheel2", pos: { x: 0, y: 0 }, img: "./img/wheel_2.webp" },
-            { ID: "Wheel3", pos: { x: 0, y: +1 }, img: "./img/wheel_3.webp" },
-            { pos: { x: +1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: +1 }, img: "./img/question_01.webp" }
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { ID: "Wheel1", img: "./img/wheel_1.webp" },
+            { ID: "Wheel2", img: "./img/wheel_2.webp" },
+            { ID: "Wheel3", img: "./img/wheel_3.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" }
         ]
     }, {
         imgSrc: "./img/shovel_0.webp",
         name: "Shovel",
         type: "Item",
         piece: [
-            { pos: { x: -1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: +1 }, img: "./img/question_01.webp" },
-            { ID: "Shovel1", pos: { x: 0, y: -1 }, img: "./img/shovel_1.webp" },
-            { ID: "Shovel2", pos: { x: 0, y: 0 }, img: "./img/shovel_2.webp" },
-            { ID: "Shovel3", pos: { x: 0, y: +1 }, img: "./img/shovel_3.webp" },
-            { pos: { x: +1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: +1 }, img: "./img/question_01.webp" }
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { ID: "Shovel1", img: "./img/shovel_1.webp" },
+            { ID: "Shovel2", img: "./img/shovel_2.webp" },
+            { ID: "Shovel3", img: "./img/shovel_3.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" }
         ]
     }, {
         imgSrc: "./img/bone_0.webp",
         name: "Bone",
         type: "Item",
         piece: [
-            { pos: { x: -1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: +1 }, img: "./img/question_01.webp" },
-            { ID: "Bone1", pos: { x: 0, y: -1 }, img: "./img/bone_1.webp" },
-            { ID: "Bone2", pos: { x: 0, y: 0 }, img: "./img/bone_2.webp" },
-            { ID: "Bone3", pos: { x: 0, y: +1 }, img: "./img/bone_3.webp" },
-            { pos: { x: +1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: +1 }, img: "./img/question_01.webp" }
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { ID: "Bone1", img: "./img/bone_1.webp" },
+            { ID: "Bone2", img: "./img/bone_2.webp" },
+            { ID: "Bone3", img: "./img/bone_3.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" }
         ]
     }, {
         imgSrc: "./img/power_timer.webp",
         name: "timer",
         type: "Power",
         piece: [
-            { pos: { x: -1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: +1 }, img: "./img/question_01.webp" },
-            { pos: { x: 0, y: -1 }, img: "./img/question_01.webp" },
-            { ID: "PowerTime", pos: { x: 0, y: 0 }, img: "./img/power_timer.webp" },
-            { pos: { x: 0, y: +1 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: +1 }, img: "./img/question_01.webp" }
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { ID: "PowerTime", img: "./img/power_timer.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" }
         ]
     },
     {
@@ -501,15 +449,35 @@ var masterItem = [{
         name: "Fuel",
         type: "Power",
         piece: [
-            { pos: { x: -1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: -1, y: +1 }, img: "./img/question_01.webp" },
-            { pos: { x: 0, y: -1 }, img: "./img/question_01.webp" },
-            { ID: "PowerFuel", pos: { x: 0, y: 0 }, img: "./img/power_fuel.webp" },
-            { pos: { x: 0, y: +1 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: -1 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: 0 }, img: "./img/question_01.webp" },
-            { pos: { x: +1, y: +1 }, img: "./img/question_01.webp" }
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { ID: "PowerFuel", img: "./img/power_fuel.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" },
+            { img: "./img/question_01.webp" }
         ]
     }
+];
+
+//Matrix de posiciones en las cuatro posibilidades de rotacion
+const defaultLocation = [
+    [{ pos: { x: -1, y: -1 } }, { pos: { x: -1, y: 0 } }, { pos: { x: -1, y: 1 } },
+        { pos: { x: 0, y: -1 } }, { pos: { x: 0, y: 0 } }, { pos: { x: 0, y: 1 } },
+        { pos: { x: 1, y: -1 } }, { pos: { x: 1, y: 0 } }, { pos: { x: 1, y: 1 } }
+    ],
+    [{ pos: { x: -1, y: 1 } }, { pos: { x: 0, y: 1 } }, { pos: { x: 1, y: 1 } },
+        { pos: { x: -1, y: 0 } }, { pos: { x: 0, y: 0 } }, { pos: { x: 1, y: 0 } },
+        { pos: { x: -1, y: -1 } }, { pos: { x: 0, y: -1 } }, { pos: { x: 1, y: -11 } }
+    ],
+    [{ pos: { x: 1, y: -1 } }, { pos: { x: 0, y: -1 } }, { pos: { x: -1, y: -1 } },
+        { pos: { x: 1, y: 0 } }, { pos: { x: 0, y: 0 } }, { pos: { x: -1, y: 0 } },
+        { pos: { x: 1, y: 1 } }, { pos: { x: 0, y: 1 } }, { pos: { x: -1, y: 1 } }
+    ],
+    [{ pos: { x: 1, y: 1 } }, { pos: { x: 1, y: 0 } }, { pos: { x: 1, y: -1 } },
+        { pos: { x: 0, y: 1 } }, { pos: { x: 0, y: 0 } }, { pos: { x: 0, y: -1 } },
+        { pos: { x: -1, y: 1 } }, { pos: { x: -1, y: 0 } }, { pos: { x: -1, y: -1 } }
+    ]
 ];
